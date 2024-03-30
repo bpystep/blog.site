@@ -11,4 +11,12 @@ class IndexController extends DefaultController
     {
         return $this->render('index');
     }
+
+    /**
+     * @return string
+     */
+    public function actionPosts()
+    {
+        return $this->render('posts');
+    }
 }

@@ -1,4 +1,5 @@
 <?php
 return [
-    '' => 'index/index',
+    'posts' => 'index/posts',
+    ''      => 'index/index',
 ];
