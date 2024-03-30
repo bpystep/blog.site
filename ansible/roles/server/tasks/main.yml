@@ -1,0 +1,70 @@
+---
+- name: Create swap file
+  become: yes
+  command: dd if=/dev/zero of={{ server.swap.path }} bs=1024 count={{ server.swap.size }}k
+    creates="{{ server.swap.path }}"
+
+
+- name: Change swap file permissions
+  become: yes
+  file: path="{{ server.swap.path }}"
+    owner=root
+    group=root
+    mode=0600
+
+- name: "Check swap file type"
+  become: yes
+  command: file {{ server.swap.path }}
+  register: swapfile
+
+- name: Make swap file
+  become: yes
+  command: "mkswap {{ server.swap.path }}"
+  when: swapfile.stdout.find('swap file') == -1
+
+- name: Write swap entry in fstab
+  become: yes
+  mount: name=none
+    src={{ server.swap.path }}
+    fstype=swap
+    opts=sw
+    passno=0
+    dump=0
+    state=present
+
+- name: Mount swap
+  become: yes
+  command: "swapon {{ server.swap.path }}"
+  when: ansible_swaptotal_mb < 256
+
+- name: super-ugly hack to allow unauthenticated packages to install
+  copy: content='APT::Get::AllowUnauthenticated "true";' dest=/etc/apt/apt.conf.d/99temp owner=root group=root mode=0644
+
+- name: Update apt
+  become: yes
+  apt: update_cache=yes
+
+- name: Install System Packages
+  become: yes
+  apt:
+    pkg: ['curl', 'wget', 'software-properties-common']
+    state: latest
+
+- name: Install Extra Packages
+  become: yes
+  apt:
+    pkg: '{{ server.packages }}'
+    state: latest
+  when: server.packages is defined
+
+- name: Configure the timezone
+  become: yes
+  template: src=timezone.tpl dest=/etc/timezone
+
+#- name: More Configure the timezone
+#  become: yes
+#  file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
+
+- name: Set default system language pack
+  shell: locale-gen {{server.locale}}
+  become: yes

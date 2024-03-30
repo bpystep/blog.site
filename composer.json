@@ -1,0 +1,74 @@
+{
+  "name": "bpystep/blog",
+  "description": "Blog",
+  "keywords": ["blog", "blog"],
+  "homepage": "https://blog.bpystep.ru",
+  "type": "project",
+  "license": "BSD-3-Clause",
+  "support": {
+    "issues": "https://github.com/bpystep/blog.site/issues",
+    "source": "https://github.com/bpystep/blog.site"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.2.0",
+    "yiisoft/yii2": "2.0.48",
+    "yiisoft/yii2-bootstrap": "*",
+    "yiisoft/yii2-swiftmailer": "*",
+    "yiisoft/yii2-redis": "*",
+    "yiisoft/yii2-authclient": "~2.0",
+    "yiisoft/yii2-jui": "~2.0",
+    "yiisoft/yii2-queue": "^2.3",
+    "yiisoft/yii2-imagine": "^2.2",
+    "2amigos/yii2-date-picker-widget": "~1.0",
+    "2amigos/yii2-date-time-picker-widget": "~1.0",
+    "maennchen/zipstream-php": "^2.0",
+    "true/punycode": "^2.1",
+    "vlucas/phpdotenv": "5.3.0"
+  },
+  "require-dev": {
+    "codeception/codeception": "*",
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "common/components"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  },
+  "scripts": {
+
+  },
+  "extra": {
+    "yii\\composer\\Installer::postCreateProject": {
+      "setPermission": [
+        {
+          "runtime": "0777",
+          "web/assets": "0777",
+          "yii": "0755"
+        }
+      ],
+      "generateCookieValidationKey": [
+        "config/web.php"
+      ]
+    }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
+}

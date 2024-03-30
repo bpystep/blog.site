@@ -1,0 +1,49 @@
+#phpstorm project files
+.idea
+
+#vagrant files
+.vagrant
+ansible/playbook.retry
+
+#netbeans project files
+nbproject
+
+#zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+#windows thumbnail cache
+Thumbs.db
+desktop.ini
+
+#mac DS_Store Files
+.DS_Store
+
+#composer itself is not needed
+composer.phar
+
+#phpunit itself is not needed
+phpunit.phar
+
+#local phpunit config
+/phpunit.xml
+
+#data
+.data
+
+#docker
+/.db
+/.cache
+
+#composer vendor dir
+/vendor
+
+#node_modules dir
+/node_modules
+
+#db dir
+/db
+
+#logs
+*.log

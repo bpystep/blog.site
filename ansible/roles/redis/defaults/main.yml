@@ -1,0 +1,8 @@
+---
+redis_version: 6.0.16
+redis_user: 'redis'
+redis_group: 'redis'
+redis_path: '/opt/redis'
+redis_conf_path: '/etc/redis'
+redis_db_path: '/var/lib/redis'
+redis_pid_path: '/var/run/redis'

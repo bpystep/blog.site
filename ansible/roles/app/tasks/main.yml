@@ -1,0 +1,11 @@
+- name: Add git-token
+  become: no
+  shell: composer config -g github-oauth.github.com {{ git_token }}
+
+- name: Run Composer
+  become: no
+  shell: /usr/local/bin/composer install chdir={{ app.project_root }}
+
+- name: Applying Migrations
+  become: no
+  shell: /usr/bin/php {{ app.project_root }}/yii migrate --interactive=0

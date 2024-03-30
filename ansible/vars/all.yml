@@ -1,0 +1,48 @@
+---
+server:
+    install: '1'
+    packages: [git, zip, acl]
+    timezone: UTC
+    locale: en_US.UTF-8
+    swap:
+        path: '/swapfile.1'
+        size: 768
+vagrant_local:
+    install: '1'
+    vm: { base_box: bionic64, hostname: blog.site, ip: 192.168.22.107, memory: '768', sharedfolder: ./, useVagrantCloud: '1', syncType: nfs }
+nginx:
+    install: '1'
+    hosts:
+      common:
+        docroot: /projects/blog.site/common/web
+        servername: common.blog.site
+      admin:
+        docroot: /projects/blog.site/admin/web
+        servername: admin.blog.site
+      public:
+        docroot: /projects/blog.site/public/web
+        servername: blog.site
+mysql:
+    install: '1'
+    root_password: '1234567890'
+    database: blog
+    user: admin
+    password: '1234567890'
+    dump: ''
+redis:
+    install: '1'
+    port: '6379'
+    password: '1234567890'
+php:
+    install: '1'
+    ppa: php
+    version: '8.2'
+    packages: [php8.2-cli, php8.2-intl, php8.2-common, php8.2-gd, php8.2-mbstring, php8.2-mysql, php-pear, php8.2-curl, php8.2-fpm, php8.2-xml, php8.2-zip]
+    pecl_packages: [timezonedb]
+xdebug:
+    install: '1'
+composer:
+    install: '1'
+app:
+    project_root: '/projects/blog.site'
+git_token: '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'

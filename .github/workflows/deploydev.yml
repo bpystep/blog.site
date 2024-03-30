@@ -1,0 +1,55 @@
+# Place your Github Actions workflow configurations in project_dir/.github/workflows/
+#
+# This configuration requires the following 4 repository secret variables:
+# PRIVATE_KEY (which will contain the content of the private key for your repository. Either reuse the one from earlier, or better, make a new one.)
+# KNOWN_HOSTS (contains a hash identifying the remote server as the genuine one. You will have the hash for the server in your local .ssh directory in the file known_hosts if you have connected to it before.)
+# TARGET_HOST (the url for server when connecting with SSH. On one.com it has the form ssh.example.com)
+# TARGET_USER (the SSH user for connecting to a remote server. On one.com the domain-name serves as the username, so it has the form of example.com).
+#
+# You are also required to update host_name for the SSH configuration on line 35 to match up with the host specified in your Deployer recipe.
+
+name: Deploy develop
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - develop
+jobs:
+  if_merged:
+    name: Deploy develop
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 8.2
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.DEV_PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEV_KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.DEV_TARGET_HOST }}
+          SSH_USER: ${{ secrets.DEV_TARGET_USER }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+            Host host_name
+              HostName $SSH_HOST
+              User $SSH_USER
+              IdentityFile ~/.ssh/staging.key
+              StrictHostKeyChecking no
+          END
+      - name: Setup Deployer
+        run: curl -LO https://deployer.org/deployer.phar && sudo mv deployer.phar /usr/local/bin/dep && sudo chmod +x /usr/local/bin/dep
+      - name: Deploy blog.bpystep.ru
+        uses: deployphp/action@master
+        with:
+          private-key: ${{ secrets.DEV_PRIVATE_KEY }}
+          known-hosts: ${{ secrets.DEV_KNOWN_HOSTS }}
+          deployer-version: '6.9.0'
+          dep: deploy develop --file deploy/deploy.php

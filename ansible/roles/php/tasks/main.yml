@@ -1,0 +1,26 @@
+---
+- name: Add ppa Repository
+  become: yes
+  apt_repository: repo=ppa:ondrej/{{ php.ppa }}
+
+- name: Update apt
+  become: yes
+  apt: update_cache=yes
+
+- name: Install php{{ php.version }}
+  become: yes
+  apt: pkg=php{{ php.version }} state=latest
+
+- name: Install php{{ php.version }}-fpm
+  become: yes
+  apt: pkg=php{{ php.version }}-fpm state=latest
+
+- name: Install PHP Packages
+  become: yes
+  apt:
+    pkg: '{{ php.packages }}'
+    state: latest
+  when: php.packages is defined
+
+- import_tasks: configure.yml
+- import_tasks: pecl.yml
