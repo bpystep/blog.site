@@ -3,7 +3,9 @@
 
 #vagrant files
 .vagrant
-ansible/playbook.retry
+
+#ansible files
+ansible/*.retry
 
 #netbeans project files
 nbproject
