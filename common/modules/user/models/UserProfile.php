@@ -84,8 +84,10 @@ class UserProfile extends ActiveRecord
             [['first_name', 'last_name'], 'trim'],
             //birthday rules
             [['birthday'], 'date', 'timestampAttribute' => 'birthday', 'timestampAttributeFormat' => 'php:Y-m-d', 'format' => 'php:d.m.Y'],
+            [['birthday'], 'default', 'value' => null],
             //photo rules
             [['photo'], 'image', 'extensions' => ImageHelper::AVAILABLE_EXTENSIONS],
+            [['photo'], 'default', 'value' => null],
             [['photo_b64'], 'safe']
         ];
     }
