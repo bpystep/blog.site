@@ -47,3 +47,8 @@ phpunit.phar
 
 #logs
 *.log
+
+#env
+.env
+.env.dev
+.env.prod
