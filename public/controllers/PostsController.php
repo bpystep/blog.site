@@ -2,7 +2,7 @@
 
 namespace public\controllers;
 
-class IndexController extends DefaultController
+class PostsController extends DefaultController
 {
     /**
      * @return string
