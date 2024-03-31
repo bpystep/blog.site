@@ -7,7 +7,7 @@ use yii\web\AssetBundle;
 class Asset extends AssetBundle
 {
     /* @inheritdoc */
-    public $sourcePath = '@admin/widgets/cropper/assets';
+    public $sourcePath = '@admin/widgets/Cropper/assets';
 
     /* @inheritdoc */
     public $css = [
