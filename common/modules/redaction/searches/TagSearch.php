@@ -2,22 +2,22 @@
 
 namespace common\modules\redaction\searches;
 
-use common\modules\redaction\models\Category;
+use common\modules\redaction\models\Tag;
 use yii\data\ActiveDataProvider;
 
-class CategorySearch extends Category
+class TagSearch extends Tag
 {
     public function rules(): array
     {
         return [
-            [['category_id'], 'integer'],
+            [['tag_id'], 'integer'],
             [['title'], 'string']
         ];
     }
 
     public function search(array $params = []): ActiveDataProvider
     {
-        $query = Category::find()->sort();
+        $query = Tag::find()->sort();
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
@@ -28,10 +28,10 @@ class CategorySearch extends Category
         }
 
         $query->andFilterWhere([
-            'category.category_id' => $this->category_id
+            'tag.tag_id' => $this->tag_id
         ])->andFilterWhere(['and',
-            ['like', 'category.title', $this->title]
-        ])->groupBy('category.category_id');
+            ['like', 'tag.title', $this->title]
+        ])->groupBy('tag.tag_id');
 
         return $dataProvider;
     }

@@ -14,8 +14,10 @@ class Module extends CommonModule
         'categories'                   => 'categories/index',
         'categories/<id:\d+>/<action>' => 'categories/<action>',
         //Теги
-        'tags' => 'tags/index',
+        'tags'                   => 'tags/index',
+        'tags/<id:\d+>/<action>' => 'tags/<action>',
         //Новости
-        'news' => 'posts/index',
+        'news'                   => 'posts/index',
+        'news/<id:\d+>/<action>' => 'tags/<action>',
     ];
 }

@@ -29,7 +29,7 @@ use yii\bootstrap4\ActiveForm;
                     'bb-url'     => Yii::$app->urlManager->createUrl(['/redaction/categories/delete', 'id' => $category->category_id]),
                     'bb-icon'    => 'question',
                     'bb-title'   => Yii::t('app', 'Подтверждение'),
-                    'bb-message' => Yii::t('redaction', 'Вы уверены, что хотите удалить партнера?'),
+                    'bb-message' => Yii::t('redaction', 'Вы уверены, что хотите удалить категорию?'),
                     'bb-confirm' => Yii::t('app', 'Да'),
                     'bb-method'  => 'post'
                 ]
