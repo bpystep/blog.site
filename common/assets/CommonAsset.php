@@ -1,14 +1,9 @@
 <?php
-
 namespace common\assets;
 
 use yii\web\AssetBundle;
 use yii\web\View;
 
-/**
- * Class CommonAsset
- * @package common\assets
- */
 class CommonAsset extends AssetBundle
 {
     /* @var string */

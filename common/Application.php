@@ -6,9 +6,7 @@ use common\components\UrlManager;
 use yii\base\InvalidConfigException;
 
 /**
- * Class Application
- * @package common
- *
+ * Defined properties:
  * @property-read UrlManager $urlManager
  * @property-read UrlManager $urlManagerCommon
  * @property-read UrlManager $urlManagerAdmin

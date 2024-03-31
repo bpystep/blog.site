@@ -4,8 +4,8 @@ namespace common\modules\user\models;
 
 use common\constants\RegExp;
 use common\modules\user\helpers\Password;
-use common\modules\user\models\queries\UserProfileQuery;
-use common\modules\user\models\queries\UserQuery;
+use common\modules\user\queries\UserProfileQuery;
+use common\modules\user\queries\UserQuery;
 use yii\base\NotSupportedException;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;

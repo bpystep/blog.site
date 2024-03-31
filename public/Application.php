@@ -7,9 +7,7 @@ use common\components\UrlManager;
 use yii\base\InvalidConfigException;
 
 /**
- * Class Application
- * @package public
- *
+ * Defined properties:
  * @property-read Seo $seo
  */
 class Application extends \common\Application

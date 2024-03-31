@@ -5,10 +5,6 @@ namespace common\components;
 use yii\helpers\ArrayHelper;
 use Exception;
 
-/**
- * Class Environment
- * @package app\components
- */
 class Environment
 {
     const ENV_DEV  = 'dev';
