@@ -12,15 +12,14 @@ $config = [
     'id'                  => 'common',
     'name'                => Env::get('SITE_NAME') . ': ' . 'common',
     'basePath'            => dirname(__DIR__),
-    'vendorPath'          => dirname(__DIR__, 2) . '/vendor',
+    'vendorPath'          => dirname(dirname(__DIR__)) . '/vendor',
     'controllerNamespace' => 'common\controllers',
-    'defaultRoute'        => 'index/index',
+    'defaultRoute'        => 'main/index',
     'language'            => 'ru-RU',
     'sourceLanguage'      => 'ru-RU',
     'aliases'             => $local['aliases'],
     'components'          => [
         'db'               => $local['db'],
-        'mailer'           => $local['mailer'],
         'formatter'        => $local['formatter'],
         'cache'            => $local['cache'],
         'redis'            => $local['redis'],
@@ -36,10 +35,7 @@ $config = [
             'translations' => [
                 '*' => [
                     'class'    => \yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@common/messages',
-                    'fileMap'  => [
-                        'app' => 'app.php'
-                    ]
+                    'basePath' => '@common/messages'
                 ]
             ]
         ]
@@ -47,4 +43,4 @@ $config = [
     'params'              => $local['params']
 ];
 
-return array_merge(require(__DIR__ . '/env.php'), ['web' => $config]);
+return array_merge(require(__DIR__ . 'env.php'), ['web' => $config]);

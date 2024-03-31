@@ -1,10 +1,10 @@
 <?php
 
-require __DIR__ . '/../vendor/yiisoft/yii2/BaseYii.php';
+require __DIR__ . '/vendor/yiisoft/yii2/BaseYii.php';
 
 class Yii extends \yii\BaseYii
 {
-    /* @var common\components\Application */
+    /* @var common\Application */
     public static $app;
 }
 

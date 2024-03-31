@@ -3,28 +3,29 @@
 use common\components\Environment as Env;
 
 $local['params'] = [
-    'dev'    => Env::get('YII_ENV') == 'dev',
-    'prod'   => Env::get('YII_ENV') == 'prod',
-    'debug'  => Env::get('YII_DEBUG')
+    'domain'            => Env::get('DOMAIN'),
+    'dev'               => Env::get('YII_ENV') == 'dev',
+    'prod'              => Env::get('YII_ENV') == 'prod',
+    'debug'             => Env::get('YII_DEBUG')
 ];
 
 $local['aliases'] = [
     '@bower'     => '@vendor/bower-asset',
     '@npm'       => '@vendor/npm-asset',
-    '@common'    => Env::get('PROJECT_ROOT') . '/common',
-    '@commonUrl' => Env::get('DOMAIN_COMMON'),
-    '@admin'     => Env::get('PROJECT_ROOT') . '/admin',
-    '@adminUrl'  => Env::get('DOMAIN_ADMIN'),
-    '@public'    => Env::get('PROJECT_ROOT') . '/public',
-    '@publicUrl' => Env::get('DOMAIN_PUBLIC'),
-    '@console'   => Env::get('PROJECT_ROOT') . '/console'
+    '@public'    => dirname(dirname(__DIR__)) . '/public',
+    '@publicUrl' => Env::get('HOST_SCHEME') . '://' . Env::get('DOMAIN_PUBLIC'),
+    '@admin'     => dirname(dirname(__DIR__)) . '/admin',
+    '@adminUrl'  => Env::get('HOST_SCHEME') . '://' . Env::get('DOMAIN_ADMIN'),
+    '@common'    => dirname(dirname(__DIR__)) . '/common',
+    '@commonUrl' => Env::get('HOST_SCHEME') . '://' . Env::get('DOMAIN_COMMON'),
+    '@console'   => dirname(dirname(__DIR__)) . '/console'
 ];
 
 $local['db'] = [
-    'class'             => \yii\db\Connection::class,
+    'class'             => 'yii\db\Connection',
     'dsn'               => Env::get('DB_DSN'),
     'username'          => Env::get('DB_USERNAME'),
-    'password'          => Env::get('DB_PASSWORD') ?: null,
+    'password'          => Env::get('DB_PASSWORD'),
     'charset'           => Env::get('DB_CHARSET'),
     'enableSchemaCache' => true
 ];
@@ -39,22 +40,22 @@ $local['formatter'] = [
 $local['session'] = [
     'cookieParams' => [
         'path'   => '/',
-        'domain' => '.' . Env::get('DOMAIN')
+        'domain' => '.' . $local['params']['domain']
     ]
 ];
 
 $local['storage'] = [
-    'class' => \common\components\storage\LocalStorage::class
+    'class' => 'common\components\storage\LocalStorage'
 ];
 
 $local['cache'] = [
-    'class'     => \yii\redis\Cache::class,
+    'class'     => 'yii\redis\Cache',
     'redis'     => 'redis',
     'keyPrefix' => 'cache'
 ];
 
 $local['redis'] = [
-    'class'    => \yii\redis\Connection::class,
+    'class'    => 'yii\redis\Connection',
     'hostname' => Env::get('REDIS_HOSTNAME'),
     'port'     => Env::get('REDIS_PORT'),
     'password' => Env::get('REDIS_PASSWORD')
@@ -62,12 +63,8 @@ $local['redis'] = [
 
 $local['request'] = [
     'cookieValidationKey' => Env::get('COOKIE_VALIDATION_KEY'),
-    'baseUrl'             => Env::get('BASE_URL'),
-    'csrfCookie'          => [
-        'name'   => '_csrf',
-        'path'   => '/',
-        'domain' => '.' . Env::get('DOMAIN')
-    ]
+    'baseUrl'             => '',
+    'csrfCookie'          => ['name' => '_csrf', 'path' => '/', 'domain' => '.' . $local['params']['domain']]
 ];
 
 $local['errorHandler'] = [
@@ -93,21 +90,21 @@ $local['log'] = [
 ];
 
 $local['queue'] = [
-    'class'  => \yii\queue\redis\Queue::class,
-    'as log' => \yii\queue\LogBehavior::class
+    'class'  => 'yii\queue\redis\Queue',
+    'as log' => 'yii\queue\LogBehavior'
 ];
 
 $local['user'] = [
-    'identityClass'  => \common\modules\user\models\User::class,
+    'identityClass'  => 'common\modules\user\models\User',
     'identityCookie' => [
         'name'   => '_identity',
         'path'   => '/',
-        'domain' => '.' . Env::get('DOMAIN')
+        'domain' => '.' . $local['params']['domain']
     ]
 ];
 
 $local['urlManager'] = [
-    'common' => [
+    'common'   => [
         'class'               => 'common\components\UrlManager',
         'prefix'              => '@commonUrl',
         'enablePrettyUrl'     => true,
@@ -121,7 +118,7 @@ $local['urlManager'] = [
         'enablePrettyUrl'     => true,
         'showScriptName'      => false,
         'enableStrictParsing' => false,
-        'rules'               => require(dirname(__DIR__, 2) . '/admin/config/rules.php')
+        'rules'               => require(dirname(dirname(__DIR__)) . '/admin/config/rules.php')
     ],
     'public' => [
         'class'               => 'common\components\UrlManager',
@@ -129,12 +126,12 @@ $local['urlManager'] = [
         'enablePrettyUrl'     => true,
         'showScriptName'      => false,
         'enableStrictParsing' => false,
-        'rules'               => require(dirname(__DIR__, 2) . '/public/config/rules.php')
+        'rules'               => require(dirname(dirname(__DIR__)) . '/public/config/rules.php')
     ]
 ];
 
 $local['seo'] = [
-    'class' => \common\components\Seo::class
+    'class' => 'common\components\Seo'
 ];
 
 return $local;

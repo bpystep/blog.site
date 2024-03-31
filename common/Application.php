@@ -1,18 +1,18 @@
 <?php
 
-namespace common\components;
+namespace common;
 
-use common\components\abstracts\User;
+use common\components\UrlManager;
 use yii\base\InvalidConfigException;
 
 /**
- * Defined properties:
- * @property-read User       $user
+ * Class Application
+ * @package common
+ *
  * @property-read UrlManager $urlManager
  * @property-read UrlManager $urlManagerCommon
  * @property-read UrlManager $urlManagerAdmin
  * @property-read UrlManager $urlManagerPublic
- * @property-read Seo        $seo
  */
 class Application extends \yii\web\Application
 {
@@ -21,7 +21,7 @@ class Application extends \yii\web\Application
      */
     public function getUrlManager(): UrlManager
     {
-        return $this->getUrlManagerCommon();
+        return $this->get('urlManager');
     }
 
     /**
@@ -29,7 +29,7 @@ class Application extends \yii\web\Application
      */
     public function getUrlManagerCommon(): UrlManager
     {
-        return $this->get('urlManager');
+        return $this->get('urlManagerCommon');
     }
 
     /**

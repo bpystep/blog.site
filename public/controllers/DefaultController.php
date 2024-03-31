@@ -3,6 +3,7 @@
 namespace public\controllers;
 
 use common\controllers\DefaultController as DefaultCommonController;
+use Yii;
 
 class DefaultController extends DefaultCommonController
 {
@@ -15,5 +16,15 @@ class DefaultController extends DefaultCommonController
         }
 
         return true;
+    }
+
+    public function actionError(): string|false
+    {
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $this->render('error', ['exception' => $exception]);
+        }
+
+        return false;
     }
 }

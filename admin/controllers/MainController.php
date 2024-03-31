@@ -1,8 +1,8 @@
 <?php
 
-namespace public\controllers;
+namespace admin\controllers;
 
-class IndexController extends DefaultController
+class MainController extends DefaultController
 {
     /**
      * @return string

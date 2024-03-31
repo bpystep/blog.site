@@ -2,6 +2,7 @@
 namespace admin\controllers;
 
 use common\controllers\DefaultController as DefaultCommonController;
+use Yii;
 
 class DefaultController extends DefaultCommonController
 {
@@ -14,5 +15,20 @@ class DefaultController extends DefaultCommonController
         }
 
         return true;
+    }
+
+    public function actionError(): string|false
+    {
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            $this->layout = 'error';
+            if ($exception->statusCode == 404) {
+                return $this->render('404', ['exception' => $exception]);
+            }
+
+            return $this->render('error', ['exception' => $exception]);
+        }
+
+        return false;
     }
 }
