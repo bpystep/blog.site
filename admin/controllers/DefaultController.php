@@ -21,14 +21,13 @@ class DefaultController extends DefaultCommonController
             return false;
         }
 
-        /*if (Yii::$app->user->isGuest) {
-            $url = Yii::$app->urlManagerPublic->createUrl(['/user/security/login']);
+        if (Yii::$app->user->isGuest) {
+            $url = Yii::$app->urlManager->createUrl(['/user/security/login']);
             Yii::$app->response->redirect($url);
             return false;
-        }*/
+        }
 
-        $this->user = User::findOne(1);
-        //$this->user = Yii::$app->user->identity;
+        $this->user = Yii::$app->user->identity;
 
         if (!$this->user->checkRole(User::ROLE_ADMIN)) {
             throw new ForbiddenHttpException();

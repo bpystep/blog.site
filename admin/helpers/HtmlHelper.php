@@ -1,6 +1,7 @@
 <?php
 namespace admin\helpers;
 
+use yii\base\Model;
 use yii\bootstrap4\ActiveForm;
 use yii\bootstrap4\Html;
 use yii\db\ActiveRecord;
@@ -21,13 +22,13 @@ class HtmlHelper
 
     /**
      * @param ActiveForm $form
-     * @param ActiveRecord $model
+     * @param Model $model
      * @param string $attribute
      * @param array $options
      * @param bool $enclosedByLabel
      * @return string
      */
-    public static function checkboxForm(ActiveForm $form, ActiveRecord $model, string $attribute, array $options = [], bool $enclosedByLabel = false): string
+    public static function checkboxForm(ActiveForm $form, Model $model, string $attribute, array $options = [], bool $enclosedByLabel = false): string
     {
         return $form->field($model, $attribute)->checkbox(self::checkboxOptions($options), $enclosedByLabel);
     }

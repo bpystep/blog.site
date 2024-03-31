@@ -14,16 +14,12 @@
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown">
-                    <a href="<?php echo Yii::$app->urlManager->createUrl(['/user/crud/update']); ?>" class="dropdown-item notify-item" target="_blank">
+                    <a href="<?php echo Yii::$app->urlManager->createUrl(['/user/crud/update']); ?>" class="dropdown-item notify-item">
                         <i class="ri-account-circle-line"></i>
                         <span><?php echo Yii::t('user', 'Аккаунт'); ?></span>
                     </a>
-                    <!--<a href="#" class="dropdown-item notify-item">
-                        <i class="ri-settings-3-line"></i>
-                        <span><?php /*echo Yii::t('user', 'Настройки'); */?></span>
-                    </a>-->
                     <div class="dropdown-divider"></div>
-                    <a href="<?php echo Yii::$app->urlManagerPublic->createUrl(['/user/security/logout']); ?>" class="dropdown-item notify-item" data-method="post">
+                    <a href="<?php echo Yii::$app->urlManager->createUrl(['/user/security/logout']); ?>" class="dropdown-item notify-item" data-method="post">
                         <i class="ri-logout-box-line"></i>
                         <span><?php echo Yii::t('user', 'Выйти'); ?></span>
                     </a>
