@@ -52,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
     const SCENARIO_UPDATE = 'update';
     const SCENARIO_ROLES  = 'roles';
 
-    public string $password;
+    public ?string $password = null;
 
     private UserProfile $_profile;
 

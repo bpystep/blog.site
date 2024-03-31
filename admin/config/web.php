@@ -18,7 +18,11 @@ $config = [
     'language'            => 'ru-RU',
     'sourceLanguage'      => 'ru-RU',
     'bootstrap'           => [
-        'log', 'queue'
+        'log', 'queue',
+        'admin\modules\user\Bootstrap',
+    ],
+    'modules'             => [
+        'user' => 'admin\modules\user\Module',
     ],
     'aliases'             => $local['aliases'],
     'container'           => [
