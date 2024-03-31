@@ -50,7 +50,15 @@ $config = [
             ]
         ],
         'assetManager'     => [
-            'appendTimestamp' => true
+            'appendTimestamp' => true,
+            //'forceCopy' => true,
+            'bundles' => [
+                'dosamigos\datepicker\DatePickerAsset'         => ['js' => [], 'css' => [], 'depends' => ['admin\assets\DatePickerAsset']],
+                'dosamigos\datetimepicker\DateTimePickerAsset' => ['js' => [], 'css' => [], 'depends' => ['admin\assets\DateTimePickerAsset']],
+                'yii\web\JqueryAsset'                          => ['sourcePath' => '@admin/web/minton', 'js' => ['plugins/jquery/jquery.min.js']],
+                'yii\bootstrap4\BootstrapAsset'                => ['css' => []],
+                'yii\bootstrap4\BootstrapPluginAsset'          => ['sourcePath' => '@admin/web/minton', 'js' => ['plugins/bootstrap/js/bootstrap.bundle.min.js'], 'depends' => []]
+            ]
         ]
     ],
     'params'              => $local['params']

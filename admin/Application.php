@@ -7,9 +7,7 @@ use yii\base\InvalidConfigException;
 use yii\queue\redis\Queue;
 
 /**
- * Class Application
- * @package admin
- *
+ * Defined properties:
  * @property-read Queue $queue
  */
 class Application extends \common\Application

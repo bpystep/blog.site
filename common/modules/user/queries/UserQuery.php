@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\user\models\queries;
+namespace common\modules\user\queries;
 
 use common\modules\user\models\User;
 use yii\db\ActiveQuery;
