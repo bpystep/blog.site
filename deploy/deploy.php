@@ -30,8 +30,6 @@ add('writable_dirs', [
     'admin/web',
     'public/runtime',
     'public/web',
-    'mobile/runtime',
-    'mobile/web',
     'console/runtime'
 ]);
 

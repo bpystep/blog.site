@@ -1,5 +1,4 @@
 <?php
-
 namespace common\components;
 
 use Yii;
@@ -7,12 +6,10 @@ use yii\web\UrlManager as BaseUrlManager;
 
 class UrlManager extends BaseUrlManager
 {
-    public string $prefix = '';
+    /* @var $prefix string */
+    public $prefix = '';
 
-    /**
-     * @inheritdoc
-     */
-    public function init(): void
+    public function init()
     {
         if ($alias = Yii::getAlias($this->prefix)) {
             $this->prefix = $alias;
@@ -21,10 +18,7 @@ class UrlManager extends BaseUrlManager
         parent::init();
     }
 
-    /**
-     * @param $params array|string
-     */
-    public function createUrl($params): string
+    public function createUrl($params)
     {
         return $this->prefix . parent::createUrl($params);
     }

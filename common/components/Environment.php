@@ -2,53 +2,70 @@
 
 namespace common\components;
 
-use Exception;
-use Yii;
 use yii\helpers\ArrayHelper;
+use Exception;
 
+/**
+ * Class Environment
+ * @package app\components
+ */
 class Environment
 {
     const ENV_DEV  = 'dev';
     const ENV_PROD = 'prod';
 
-    const CONFIG_NAME_WEB     = 'web';
-    const CONFIG_NAME_CONSOLE = 'console';
+    /* @var string */
+    protected $envName = 'YII_ENV';
 
-    protected string $envName = 'YII_ENV';
-
-    protected array $validModes = [
-        self::ENV_DEV,
-        self::ENV_PROD
+    /* @var string[] */
+    protected $validModes = [
+        self::ENV_DEV, self::ENV_PROD
     ];
 
-    protected array $configDir = [];
+    /* @var string[] */
+    protected $configDir = [];
 
-    protected ?string $mode = null;
+    /* @var string */
+    protected $mode;
 
-    private static bool $isSafe = false;
+    /* @var boolean */
+    private static $isSafe = false;
 
-    private bool $isWeb;
+    /* @var boolean */
+    private $isWeb;
 
-    private bool $isConsole;
+    /* @var boolean */
+    private $isConsole;
 
-    public string $yiiPath;
+    /* @var string */
+    public $yiiPath;
 
-    public bool $yiiDebug;
+    /* @var boolean */
+    public $yiiDebug;
 
-    public string $yiiEnv;
+    /* @var string */
+    public $yiiEnv;
 
-    public array $aliases = [];
+    /* @var array */
+    public $aliases = [];
 
-    public array $classMap = [];
+    /* @var array */
+    public $classMap = [];
 
-    public array $web = [];
+    /* @var array */
+    public $web = [];
 
-    public array $console = [];
+    /* @var array */
+    public $console = [];
 
-    public function __construct(string $configDir, bool $isSafe, bool $isWeb, bool $isConsole, ?string $mode = null)
+    /**
+     * @param string|string[] $configDir
+     * @param string $mode
+     * @throws Exception
+     */
+    public function __construct($configDir, $isSafe, $isWeb, $isConsole, $mode = null)
     {
         static::$isSafe = $isSafe;
-
         $this->isWeb = $isWeb;
         $this->isConsole = $isConsole;
 
@@ -58,26 +75,26 @@ class Environment
     }
 
     /**
+     * @param $configDir string|string[]
      * @throws Exception
      */
-    protected function setConfigDir(string|array $configDir): void
+    protected function setConfigDir($configDir)
     {
         $this->configDir = [];
-
         foreach ((array) $configDir as $k => $v) {
             $dir = rtrim($v, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
             if (!is_dir($dir)) {
-                throw new Exception("Invalid configuration directory '{$dir}'.");
+                throw new \Exception("Invalid configuration directory '{$dir}'.");
             }
-
             $this->configDir[$k] = $dir;
         }
     }
 
     /**
+     * @param $mode string
      * @throws Exception
      */
-    protected function setMode(?string $mode): void
+    protected function setMode($mode)
     {
         if ($mode === null) {
             $mode = getenv($this->envName);
@@ -88,20 +105,21 @@ class Environment
 
         $mode = mb_strtolower($mode);
         if (!in_array($mode, $this->validModes, true)) {
-            throw new Exception("Invalid environment mode supplied or selected: {$mode}");
+            throw new \Exception("Invalid environment mode supplied or selected: {$mode}");
         }
 
         $this->mode = $mode;
     }
 
     /**
+     * Sets the environment and configuration for the selected mode.
      * @throws Exception
      */
-    protected function setEnvironment(): void
+    protected function setEnvironment()
     {
         $config = $this->getConfig();
         if (!is_readable($config['yiiPath'])) {
-            throw new Exception("Invalid Yii framework path {$config['yiiPath']}.");
+            throw new \Exception("Invalid Yii framework path {$config['yiiPath']}.");
         }
 
         $this->yiiPath  = $config['yiiPath'];
@@ -116,14 +134,20 @@ class Environment
             $this->console['params']['env'] = $this->mode;
         }
 
-        $this->aliases  = $config['aliases']  ?? [];
+        $this->aliases  = $config['aliases'] ?? [];
         $this->classMap = $config['classMap'] ?? [];
     }
 
-    public function setup(): void
+    /**
+     * Defines Yii constants, includes base Yii class, sets aliases and merges class map.
+     */
+    public function setup()
     {
         $configName = $this->getConfigName();
 
+        /**
+         * This constant defines whether the application should be in debug mode or not.
+         */
         defined('YII_DEBUG') or define('YII_DEBUG', $this->yiiDebug);
         if ($this->yiiDebug && $this->yiiEnv != self::ENV_PROD) {
             $this->{$configName}['bootstrap'][] = 'debug';
@@ -137,25 +161,34 @@ class Environment
             $this->{$configName}['components']['log']['tracelevel'] = 3;
         }
 
+        /**
+         * This constant defines in which environment the application is running.
+         * The value could be 'prod' (production) or 'dev' (development).
+         */
         defined('YII_ENV') or define('YII_ENV', $this->yiiEnv);
 
-        require(__DIR__ . '/Application.php');
+        // Include common/Application.
+        require(__DIR__ . '/../Application.php');
+
+        // Include Yii.
         require($this->yiiPath);
 
+        // Set aliases.
         foreach ($this->aliases as $alias => $path) {
-            Yii::setAlias($alias, $path);
+            \Yii::setAlias($alias, $path);
         }
 
         // Merge class map.
         if (!empty($this->classMap)) {
-            Yii::$classMap = ArrayHelper::merge(Yii::$classMap, $this->classMap);
+            \Yii::$classMap = ArrayHelper::merge(\Yii::$classMap, $this->classMap);
         }
     }
 
     /**
+     * @return array
      * @throws Exception
      */
-    protected function getConfig(): array
+    protected function getConfig()
     {
         $configName = $this->getConfigName();
 
@@ -163,7 +196,7 @@ class Environment
         foreach ($this->configDir as $configDir) {
             $webConfigFile = "{$configDir}{$configName}.php";
             if (!file_exists($webConfigFile)) {
-                throw new Exception("Cannot find web config file '{$webConfigFile}'.");
+                throw new \Exception("Cannot find web config file '{$webConfigFile}'.");
             }
             $webConfig = require($webConfigFile);
             if (is_array($webConfig)) {
@@ -172,7 +205,7 @@ class Environment
 
             $modeConfigFile = "{$configDir}{$configName}.{$this->mode}.php";
             if (!file_exists($modeConfigFile)) {
-                //throw new Exception("Cannot find mode specific config file '{$modeConfigFile}'.");
+                //throw new \Exception("Cannot find mode specific config file '{$modeConfigFile}'.");
             } else {
                 $modeConfig = require($modeConfigFile);
                 if (is_array($modeConfig)) {
@@ -192,18 +225,19 @@ class Environment
         return $envConfig;
     }
 
-    private function getConfigName(): ?string
+    /**
+     * @return string|null
+     */
+    private function getConfigName()
     {
-        if ($this->isWeb) {
-            return self::CONFIG_NAME_WEB;
-        } if ($this->isConsole) {
-            return self::CONFIG_NAME_CONSOLE;
-        }
-
-
-        return null;
+        return $this->isWeb ? 'web' : (
+            $this->isConsole ? 'console' : null
+        );
     }
 
+    /**
+     * Show current Environment class values.
+     */
     public function showDebug()
     {
         print '<div style="position: absolute; left: 0; width: 100%; height: 250px; overflow: auto;'
@@ -212,22 +246,29 @@ class Environment
             . htmlspecialchars(print_r($this, true)) . '</pre></div>';
     }
 
-    public static function get(string $key, mixed $default = null): mixed
+    /**
+     * @param $key string
+     * @param $default mixed
+     * @return array|bool|false|mixed|string|null
+     */
+    public static function get($key, $default = null)
     {
         if (static::$isSafe) {
             $value = getenv($key);
         }
-
         $value = $value ?? $_ENV[$key] ?? $_SERVER[$key] ?? false;
 
         if ($value === '' || $value === false) {
             return $default;
         }
 
-        return match (mb_strtolower($value)) {
-            'true', '(true)'   => true,
-            'false', '(false)' => false,
-            default => $value
-        };
+        switch (mb_strtolower($value)) {
+            case 'true'   :
+            case '(true)' : return true;
+            case 'false'  :
+            case '(false)': return false;
+        }
+
+        return $value;
     }
 }

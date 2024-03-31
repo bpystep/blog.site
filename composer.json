@@ -34,9 +34,8 @@
   },
   "autoload": {
     "classmap": [
-      "common/components",
-      "public/components",
-      "admin/components"
+      "common/components/Environment.php",
+      "common/Application.php"
     ]
   },
   "config": {

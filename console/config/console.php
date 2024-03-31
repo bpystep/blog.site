@@ -1,13 +1,13 @@
 <?php
-
 use common\components\Environment as Env;
 
-$local = require(dirname(__DIR__, 2) . '/common/config/local.php');
+$local = require(dirname(dirname(__DIR__)) . '/common/config/local.php');
 foreach (['params.php', 'params.local.php'] as $item) {
     if (file_exists(__DIR__ . DIRECTORY_SEPARATOR . $item)) {
         $local['params'] = yii\helpers\ArrayHelper::merge($local['params'], require __DIR__ . DIRECTORY_SEPARATOR . $item);
     }
 }
+
 $config = [
     'id'                  => 'console',
     'name'                => Env::get('SITE_NAME') . ': ' . 'console',
@@ -15,26 +15,25 @@ $config = [
     'language'            => 'ru-RU',
     'sourceLanguage'      => 'ru-RU',
     'aliases'             => $local['aliases'],
-    'bootstrap'           => ['log'],
+    'bootstrap'           => ['log', 'queue'],
     'controllerNamespace' => 'console\commands',
     'components'          => [
         'cache'   => $local['cache'],
         'user'    => [
-            'class'         => \common\components\abstracts\User::class,
+            'class'         => \yii\web\User::class,
             'identityClass' => \common\modules\user\models\User::class
         ],
-        'session' => ['class' => \yii\web\Session::class],
+        'session' => ['class' => 'yii\web\Session'],
         'redis'   => $local['redis'],
         'db'      => $local['db'],
+        'storage' => $local['storage'],
         'log'     => $local['log'],
+        'queue'   => $local['queue'],
         'i18n'    => [
             'translations' => [
                 '*' => [
-                    'class'    => \yii\i18n\PhpMessageSource::class,
-                    'basePath' => '@common/messages',
-                    'fileMap'  => [
-                        'app' => 'app.php'
-                    ]
+                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@common/messages'
                 ]
             ]
         ],

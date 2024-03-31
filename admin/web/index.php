@@ -15,4 +15,4 @@ $dotenv->required(['DB_HOSTNAME', 'DB_PORT', 'DB_NAME', 'DB_USERNAME', 'DB_PASSW
 $dotenv->required(['REDIS_HOSTNAME', 'REDIS_PORT', 'REDIS_PASSWORD'])->notEmpty();
 $dotenv->required(['ROBOTS'])->isBoolean();
 
-(new \admin\components\Application($env->web))->run();
+(new \admin\Application($env->web))->run();
