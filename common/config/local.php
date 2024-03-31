@@ -31,8 +31,10 @@ $local['db'] = [
 ];
 
 $local['formatter'] = [
+    'class'           => 'common\components\Formatter',
     'dateFormat'      => 'php:Y-m-d',
     'datetimeFormat'  => 'php:Y-m-d H:i',
+    'siteTimeZone'    => 'Europe/Moscow',
     'timeZone'        => Env::get('TZ'),
     'defaultTimeZone' => Env::get('TZ')
 ];

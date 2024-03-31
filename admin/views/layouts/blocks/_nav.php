@@ -8,22 +8,41 @@ use yii\helpers\ArrayHelper;
 /* @var $controller  admin\controllers\DefaultController */
 
 $controller = $this->context;
+$module = $controller->module;
 
-$isUserModule = $controller->module->id == 'user';
+$isUserModule      = $module->id == 'user';
+$isRedactionModule = $module->id == 'redaction';
 
 $items = [];
 
 if ($user->isAdmin) {
-    $items[] = [
-        'label' => Yii::t('menu', 'Настройки'),
-        'icon'  => 'fe-settings',
-        'url'   => ['/main/settings']
-    ];
+    $items[] = '<li class="menu-title">' . Yii::t('menu', 'Сайт') . '</li>';
     $items[] = [
         'label'  => Yii::t('menu', 'Аккаунт'),
         'url'    => ['/user/crud/update'],
         'icon'   => 'fas fa-user',
         'active' => $isUserModule
+    ];
+    $items[] = [
+        'label' => Yii::t('menu', 'Настройки'),
+        'icon'  => 'fe-settings',
+        'url'   => ['/main/settings']
+    ];
+    $items[] = '<li class="menu-title mt-2">' . Yii::t('menu', 'Редакция') . '</li>';
+    $items[] = [
+        'label'  => Yii::t('menu', 'Новости'),
+        'url'    => ['/redaction/posts/index'],
+        'icon'   => 'fas fa-newspaper'
+    ];
+    $items[] = [
+        'label'  => Yii::t('menu', 'Категории'),
+        'url'    => ['/redaction/categories/index'],
+        'icon'   => 'fas fa-folder'
+    ];
+    $items[] = [
+        'label'  => Yii::t('menu', 'Теги'),
+        'url'    => ['/redaction/tags/index'],
+        'icon'   => 'fas fa-tags'
     ];
 }
 ?>

@@ -2,15 +2,40 @@
 
 namespace common\components\storage;
 
+/**
+ * StorageInterface Interface
+ */
 interface StorageInterface
 {
-    public function save(string $filePath, string $name, array $options = []): bool;
+    /**
+     * @param $filePath string
+     * @param $name string
+     * @param $options []
+     * @return boolean
+     */
+    public function save($filePath, $name, $options = []);
 
-    public function delete(string $name): bool;
+    /**
+     * @param $name string
+     * @return boolean
+     */
+    public function delete($name);
 
-    public function fileExists(string $name): bool;
+    /**
+     * @param $name string
+     * @return boolean
+     */
+    public function fileExists($name);
 
-    public function getUrl(string $name): string;
+    /**
+     * @param $name string
+     * @return string
+     */
+    public function getUrl($name);
 
-    public function getLocalPath(string $path): string;
+    /**
+     * @param $path string
+     * @return string
+     */
+    public function getLocalPath($path);
 }

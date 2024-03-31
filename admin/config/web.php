@@ -10,7 +10,7 @@ foreach (['params.php', 'params.local.php'] as $item) {
 
 $config = [
     'id'                  => 'admin',
-    'name'                => Env::get('SITE_NAME') . ': ' . 'admin',
+    'name'                => Env::get('SITE_NAME') . ': ' . 'Административная панель',
     'basePath'            => dirname(__DIR__),
     'vendorPath'          => dirname(dirname(__DIR__)) . '/vendor',
     'controllerNamespace' => 'admin\controllers',
@@ -20,9 +20,11 @@ $config = [
     'bootstrap'           => [
         'log', 'queue',
         'admin\modules\user\Bootstrap',
+        'admin\modules\redaction\Bootstrap',
     ],
     'modules'             => [
-        'user' => 'admin\modules\user\Module',
+        'user'      => 'admin\modules\user\Module',
+        'redaction' => 'admin\modules\redaction\Module'
     ],
     'aliases'             => $local['aliases'],
     'container'           => [
@@ -54,7 +56,7 @@ $config = [
             ]
         ],
         'assetManager'     => [
-            'appendTimestamp' => true,
+            //'appendTimestamp' => true,
             //'forceCopy' => true,
             'bundles' => [
                 'dosamigos\datepicker\DatePickerAsset'         => ['js' => [], 'css' => [], 'depends' => ['admin\assets\DatePickerAsset']],
