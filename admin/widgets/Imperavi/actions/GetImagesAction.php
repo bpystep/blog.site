@@ -1,7 +1,7 @@
 <?php
-namespace admin\widgets\imperavi\actions;
+namespace admin\widgets\Imperavi\actions;
 
-use admin\widgets\imperavi\models\ImageFile;
+use admin\widgets\Imperavi\models\ImageFile;
 use yii\base\InvalidConfigException;
 use yii\web\Response;
 use Yii;

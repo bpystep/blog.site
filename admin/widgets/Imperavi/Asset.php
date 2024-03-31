@@ -1,12 +1,12 @@
 <?php
-namespace admin\widgets\imperavi;
+namespace admin\widgets\Imperavi;
 
 use yii\web\AssetBundle;
 
 class Asset extends AssetBundle
 {
     /* @var string */
-    public $sourcePath = '@admin/widgets/imperavi/src';
+    public $sourcePath = '@admin/widgets/Imperavi/src';
 
     /* @var [] */
     public $plugins = [];

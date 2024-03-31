@@ -1,8 +1,8 @@
 <?php
-namespace admin\widgets\imperavi\actions;
+namespace admin\widgets\Imperavi\actions;
 
 use Yii;
-use admin\widgets\imperavi\models\ImageFile;
+use admin\widgets\Imperavi\models\ImageFile;
 
 class ImageUploadAction extends UploadAction
 {

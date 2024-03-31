@@ -1,7 +1,8 @@
 <?php
-namespace admin\widgets\imperavi\actions;
 
-use admin\widgets\imperavi\models\DocumentFile;
+namespace admin\widgets\Imperavi\actions;
+
+use admin\widgets\Imperavi\models\DocumentFile;
 
 class DocumentUploadAction extends UploadAction
 {

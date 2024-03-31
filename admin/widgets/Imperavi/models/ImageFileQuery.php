@@ -1,5 +1,5 @@
 <?php
-namespace admin\widgets\imperavi\models;
+namespace admin\widgets\Imperavi\models;
 
 use yii\db\ActiveQuery;
 
