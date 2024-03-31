@@ -11,7 +11,8 @@ class TagSearch extends Tag
     {
         return [
             [['tag_id'], 'integer'],
-            [['title'], 'string']
+            [['title'], 'string'],
+            [['title'], 'trim']
         ];
     }
 

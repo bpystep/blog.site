@@ -3,6 +3,7 @@
 namespace common\modules\redaction\models;
 
 use common\modules\redaction\queries\CategoryQuery;
+use common\modules\redaction\queries\PostQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -17,6 +18,9 @@ use yii\db\ActiveRecord;
  * @property integer $updated_by
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * Defined relations:
+ * @property Post[] $posts
  */
 class Category extends ActiveRecord
 {
@@ -56,8 +60,20 @@ class Category extends ActiveRecord
         ];
     }
 
+    public function afterDelete(): void
+    {
+        parent::afterDelete();
+
+        Post::updateAll(['category_id' => null], ['category_id' => $this->category_id]);
+    }
+
     public static function find(): CategoryQuery
     {
         return new CategoryQuery(get_called_class());
+    }
+
+    public function getPosts(): PostQuery
+    {
+        return $this->hasMany(Post::class, ['category_id' => 'category_id']);
     }
 }

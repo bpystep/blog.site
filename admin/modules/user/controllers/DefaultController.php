@@ -4,10 +4,6 @@ namespace admin\modules\user\controllers;
 
 use admin\controllers\DefaultController as AdminDefaultController;
 
-/**
- * Class DefaultController
- * @package backend\modules\user\controllers\backend
- */
 class DefaultController extends AdminDefaultController
 {
     /* @var string */

@@ -56,7 +56,7 @@ $config = [
             ]
         ],
         'assetManager'     => [
-            'appendTimestamp' => true,
+            //'appendTimestamp' => true,
             //'forceCopy' => true,
             'bundles' => [
                 'dosamigos\datepicker\DatePickerAsset'         => ['js' => [], 'css' => [], 'depends' => ['admin\assets\DatePickerAsset']],

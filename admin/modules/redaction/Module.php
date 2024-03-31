@@ -18,6 +18,6 @@ class Module extends CommonModule
         'tags/<id:\d+>/<action>' => 'tags/<action>',
         //Новости
         'news'                   => 'posts/index',
-        'news/<id:\d+>/<action>' => 'tags/<action>',
+        'news/<id:\d+>/<action>' => 'posts/<action>',
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace common\modules\redaction\models;
 
+use common\modules\redaction\queries\PostQuery;
 use common\modules\redaction\queries\TagQuery;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -16,6 +17,9 @@ use yii\db\ActiveRecord;
  * @property integer $updated_by
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * Defined relations:
+ * @property Post[] $posts
  *
  * Defined properties:
  * @property string $name
@@ -64,5 +68,11 @@ class Tag extends ActiveRecord
     public function getName(): string
     {
         return "#{$this->title}";
+    }
+
+    public function getPosts(): PostQuery
+    {
+        return $this->hasMany(Post::class, ['post_id' => 'post_id'])
+            ->viaTable('post_tag_assn', ['tag_id' => 'tag_id']);
     }
 }

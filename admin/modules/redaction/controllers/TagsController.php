@@ -107,7 +107,7 @@ class TagsController extends DefaultController
             Yii::$app->session->setFlash('danger', Yii::t('redaction', 'Ошибка при удалении тега!'));
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

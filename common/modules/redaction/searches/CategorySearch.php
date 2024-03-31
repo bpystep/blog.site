@@ -11,7 +11,8 @@ class CategorySearch extends Category
     {
         return [
             [['category_id'], 'integer'],
-            [['title'], 'string']
+            [['title'], 'string'],
+            [['title'], 'trim']
         ];
     }
 
