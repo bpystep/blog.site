@@ -15,6 +15,11 @@ class DefaultController extends DefaultCommonController
 
     public ?Settings $settings = null;
 
+    /**
+     * @inheritdoc
+     * @throws ForbiddenHttpException
+     * @throws yii\base\InvalidRouteException
+     */
     public function beforeAction($action): bool
     {
         if (!parent::beforeAction($action)) {
