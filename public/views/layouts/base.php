@@ -1,26 +1,20 @@
 <?php
 
-use yii\helpers\Html;
+/* @var $this       yii\web\View */
+/* @var $content    string */
+/* @var $controller public\controllers\DefaultController */
 
-/* @var $this    yii\web\View */
-/* @var $content string */
+$controller = $this->context;
 ?>
 
-<?php $this->beginPage(); ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language; ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset; ?>">
-    <title><?= Html::encode($this->title); ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <?= Html::csrfMetaTags(); ?>
-    <?php $this->head(); ?>
-</head>
-<body class="loading">
-<?php $this->beginBody(); ?>
-<?= $content; ?>
-<?php $this->endBody(); ?>
-</body>
-</html>
-<?php $this->endPage(); ?>
+<?php $this->beginContent('@public/views/layouts/default.php'); ?>
+    <div id="wrapper">
+        <?php echo $this->render('blocks/_header', ['transparent'  => $controller->transparentHeader]); ?>
+        <?php echo $content; ?>
+        <?php echo $this->render('blocks/_footer'); ?>
+    </div>
+    <?php //echo $this->render('blocks/_sidepanel'); ?>
+    <?php if (isset($this->blocks['footer'])) {
+        echo $this->blocks['footer'];
+    } ?>
+<?php $this->endContent(); ?>

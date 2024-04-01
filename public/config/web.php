@@ -48,7 +48,19 @@ $config = [
             ]
         ],
         'assetManager'     => [
-            'appendTimestamp' => true
+            'appendTimestamp' => true,
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => '@public/web/smarty',
+                    'js'         => ['plugins/jquery/jquery-3.2.1.min.js']
+                ],
+                'yii\bootstrap4\BootstrapPluginAsset' => [
+                    'sourcePath' => '@public/web/smarty',
+                    'css'        => ['plugins/bootstrap/css/bootstrap.min.css'],
+                    'js'         => ['plugins/bootstrap/js/bootstrap.bundle.js'],
+                    'depends'    => []
+                ]
+            ]
         ]
     ],
     'params'              => $local['params']

@@ -18,7 +18,7 @@ switch ($exception->statusCode) {
                     <div class="auth-logo">
                         <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/index']); ?>" class="logo logo-dark text-center">
                             <span class="logo-lg">
-                                <img src="<?php echo Yii::getAlias('@commonUrl/img/logo-text-186.png'); ?>" alt="<?php echo Yii::$app->name; ?>" height="64">
+                                <i class="fas fa-blog" style="color: #ffffff; font-size: 32px;"></i>
                             </span>
                         </a>
                     </div>
