@@ -101,7 +101,7 @@ class Seo extends Component
 
     private function getDefaultImage(): string
     {
-        return 'логотип';
+        return Yii::getAlias('@commonUrl/imageslogo.png/logo.png');
     }
 
     public function getH1(View $view): string

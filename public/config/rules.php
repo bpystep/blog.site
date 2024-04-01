@@ -1,5 +1,6 @@
 <?php
 
 return [
-    '' => 'main/index'
+    '' => 'main/index',
+    '<action>' => 'main/<action>',
 ];

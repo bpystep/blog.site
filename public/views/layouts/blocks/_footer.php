@@ -10,7 +10,9 @@ $settings   = $controller->settings;
 <footer id="footer">
     <div class="container pt-20">
         <div class="row fs-13">
-            <div class="col-md-3 col-sm-3">логотип</div>
+            <div class="col-md-3 col-sm-3">
+                <img src="/images/logo.png" width="200">
+            </div>
             <?php if (!empty($settings->socials)) { ?>
                 <div class="col-md-5 col-sm-5">
                     <h4 class="letter-spacing-1"><?php echo Yii::t('*', 'Контакты'); ?></h4>

@@ -12,10 +12,15 @@ use yii\db\ActiveQuery;
  */
 class PostQuery extends ActiveQuery
 {
+    public function exclude(array|int $ids): self
+    {
+        return $this->andWhere(['not', ['post.post_id' => (array)$ids]]);
+    }
+
     public function sort(): self
     {
         return $this->orderBy([
-            'post.published_dt' => SORT_ASC
+            'post.published_dt' => SORT_DESC
         ]);
     }
 
@@ -30,5 +35,15 @@ class PostQuery extends ActiveQuery
     public function active($is = true): self
     {
         return $this->andWhere(['post.is_temp' => !$is]);
+    }
+
+    public function onMain($is = true): self
+    {
+        return $this->andWhere(['post.on_main' => $is]);
+    }
+
+    public function inSlider($is = true): self
+    {
+        return $this->onMain()->andWhere(['post.in_slider' => $is]);
     }
 }
