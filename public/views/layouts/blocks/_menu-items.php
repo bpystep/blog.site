@@ -12,8 +12,13 @@ $action = $controller->action;
         <?php echo Yii::t('*', 'Главная'); ?>
     </a>
 </li>
-<li <?php if ($module->id == 'redaction' && $controller->id == 'posts') echo 'class="active"'; ?>>
-    <a href="<?php echo Yii::$app->urlManager->createUrl(['/redaction/posts/index']); ?>">
+<li <?php if ($module->id == 'public' && $controller->id == 'main' && $action->id == 'profile') echo 'class="active"'; ?>>
+    <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/profile']); ?>">
+        <?php echo Yii::t('*', 'Обо мне'); ?>
+    </a>
+</li>
+<li <?php if ($module->id == 'public' && $controller->id == 'main' && $action->id == 'posts') echo 'class="active"'; ?>>
+    <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/news']); ?>">
         <?php echo Yii::t('*', 'Новости'); ?>
     </a>
 </li>

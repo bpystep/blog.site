@@ -14,7 +14,7 @@ $settings = $controller->settings;
     <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
             <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/index']); ?>" class="logo text-center ml-10">
-                логотип
+                <img src="/images/logo.png">
             </a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">

@@ -44,7 +44,7 @@ use yii\db\ActiveRecord;
  * @property array $tagValues
  *
  * Defined methods:
- * @method getThumbUploadUrl($attribute, $size = 'thumb')
+ * @method getImageUrl($attribute, $thumbName = 'thumb')
  * @method attachImage($attribute, $imagePath)
  */
 class Post extends ActiveRecord
@@ -175,7 +175,7 @@ class Post extends ActiveRecord
 
     public function getCreator(): UserQuery
     {
-        return $this->hasOne(User::class, ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['user_id' => 'created_by']);
     }
 
     public function getCategory(): CategoryQuery

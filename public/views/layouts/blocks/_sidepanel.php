@@ -15,7 +15,12 @@
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="<?php echo Yii::$app->urlManager->createUrl(['/redaction/posts/index']); ?>">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/profile']); ?>">
+                    <i class="fa fa-newspaper"></i><?php echo Yii::t('*', 'Обо мне'); ?>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="<?php echo Yii::$app->urlManager->createUrl(['/main/news']); ?>">
                     <i class="fa fa-newspaper"></i><?php echo Yii::t('*', 'Новости'); ?>
                 </a>
             </li>
