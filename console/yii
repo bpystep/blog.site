@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+require(__DIR__ . '/../vendor/autoload.php');
+
+defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
+defined('STDOUT') or define('STDOUT', fopen('php://stdout', 'w'));
+
+$isSafe = false; //if want use php:getenv(), set true
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__), ['.env.local', '.env'], false);
+$isSafe ? $dotenv->safeLoad() : $dotenv->load();
+
+use common\components\Environment as Env;
+$env = new Env(__DIR__ . '/config', $isSafe, false, true);
+$env->setup();
+
+$dotenv->required(['YII_DEBUG', 'YII_ENV'])->notEmpty();
+$dotenv->required(['DB_HOSTNAME', 'DB_PORT', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD', 'DB_CHARSET'])->notEmpty();
+$dotenv->required(['REDIS_HOSTNAME', 'REDIS_PORT', 'REDIS_PASSWORD'])->notEmpty();
+
+exit((new yii\console\Application($env->console))->run());
