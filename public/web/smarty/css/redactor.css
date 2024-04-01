@@ -1,0 +1,30 @@
+.redactor-text {
+  color: #666666;
+}
+
+body.dark .redactor-text {
+  color: #cccccc;
+}
+
+.redactor-text ol,
+.redactor-text ul {
+  margin: 0 14px 6px 20px;
+  padding: 0;
+}
+
+body .page-container ol ul {
+  margin-left: 20px;
+}
+
+.redactor-text ol {
+  counter-reset: item
+}
+
+.redactor-text ol > li {
+  display: block
+}
+
+.redactor-text ol > li:before {
+  content: counters(item, ".") ". ";
+  counter-increment: item
+}

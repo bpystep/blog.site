@@ -5,13 +5,10 @@ use yii\web\AssetBundle;
 
 class MintonAsset extends AssetBundle
 {
-    /* @var string */
     public $basePath = '@webroot/minton/';
 
-    /* @var string */
     public $baseUrl = '@web/minton/';
 
-    /* @var string[] */
     public $css = [
         'plugins/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css',
         'css/default/bootstrap.min.css',
@@ -22,7 +19,6 @@ class MintonAsset extends AssetBundle
         'css/icons.min.css',
     ];
 
-    /* @var string[] */
     public $js = [
         'js/vendor.min.js',
         'plugins/select2/js/select2.min.js',
@@ -32,7 +28,6 @@ class MintonAsset extends AssetBundle
         'js/app.min.js',
     ];
 
-    /* @var string[] */
     public $depends = [
         'dosamigos\datepicker\DatePickerAsset',
         'common\assets\CommonAsset',

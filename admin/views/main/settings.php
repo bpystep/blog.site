@@ -7,21 +7,6 @@ use yii\bootstrap4\ActiveForm;
 
 $this->title = Yii::t('admin', 'Настройки');
 $this->params['breadcrumbs'][] = Yii::t('admin', 'Настройки');
-
-rmrevin\yii\fontawesome\AssetBundle::register($this);
-$this->registerJs("$(document).ready(function() {
-    $('#settings-slidetop_block1_icon, #settings-slidetop_block2_icon').select2({
-        templateSelection: formatIcons,
-        templateResult: formatIcons
-    });
-    function formatIcons(icon) {
-        var el = $('<span>').css({'display': 'flex', 'alignItems': 'center'}).html($(icon.element).text());
-        $(el).find('.fa').addClass('fa-2x').css({'width': '60px', 'textAlign': 'center'}).after(
-            $('<span>').text($($(icon)[0].element).val()
-        ));
-        return el;
-    }
-});");
 ?>
 
 <?php echo $this->render('blocks/_tabs', [

@@ -15,7 +15,6 @@ use yii\helpers\Html;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <?php echo Html::csrfMetaTags(); ?>
-    <?php $this->registerLinkTag(['rel' => 'yandex-tableau-widget', 'href' => Yii::getAlias('@commonUrl/manifest.json')]); ?>
     <?php $this->registerLinkTag(['rel' => 'shortcut icon', 'href' => Yii::getAlias('@commonUrl/favicon/favicon.ico'), 'image/x-icon']); ?>
     <?php $this->head(); ?>
 </head>
